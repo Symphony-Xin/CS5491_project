@@ -100,14 +100,14 @@ class Sampler:
         
             prompt = self._database.get_prompt()
             reset_time = time.time()
-            sign = self.__class__._global_samples_nums % (self._samples_per_prompt*2)
-            print("global:"+str(self.__class__._global_samples_nums))
-            print("sign:"+str(sign))
-            if(self.__class__._global_samples_nums % (self._samples_per_prompt*2) == 1):
+            sign = self.__class__._global_samples_nums % (self._samples_per_prompt*5)
+            # print("global:"+str(self.__class__._global_samples_nums))
+            # print("sign:"+str(sign))
+            if(self.__class__._global_samples_nums % (self._samples_per_prompt*5) == 1):
                 self._llm.get_insight(prompt.code+"Try to generate constructive insights for the provided functions in order to build better heuristics. Ignore any uncomplete functions. Only output insights, less than 50 words.")
                 samples = self._llm.draw_samples(prompt.code)
                 self._llm.clear_insights()
-                print("Clear done")
+                # print("Clear done")
             else:
                 samples = self._llm.draw_samples(prompt.code)
             sample_time = (time.time() - reset_time) / self._samples_per_prompt
